@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from './config/configuration';
 import { DatabaseModule } from './database.module';
 import { MembersModule } from './members/members.module';
+import { APP_FILTER } from '@nestjs/core';
+import { TypeORMExceptionFilter } from './filters/type-orm-filter.filter';
 
 @Module({
   imports: [
@@ -16,7 +18,12 @@ import { MembersModule } from './members/members.module';
     MembersModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+      provide: APP_FILTER,
+      useClass: TypeORMExceptionFilter,
+    },
+  ],
 })
 
 export class AppModule { }

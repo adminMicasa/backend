@@ -1,6 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Members } from './member.entity';
+import { Member } from './member.entity';
 import { ILike, Like, Repository } from 'typeorm';
 import { FiltersApi, PaginationApi } from 'src/shared/interfaces/filters-api.interfaces';
 
@@ -8,8 +8,8 @@ import { FiltersApi, PaginationApi } from 'src/shared/interfaces/filters-api.int
 export class MembersService {
     private readonly logger = new Logger(MembersService.name);
 
-    constructor(@InjectRepository(Members, 'default')
-    private readonly membersRepository: Repository<Members>,) {
+    constructor(@InjectRepository(Member, 'default')
+    private readonly membersRepository: Repository<Member>,) {
     }
 
     async getAll(paginator: PaginationApi, filters: FiltersApi) {
@@ -27,4 +27,37 @@ export class MembersService {
         });
         return { data, total };
     }
+
+    async getMemberById(id: string) {
+        const member = await this.membersRepository.findOneBy({ id: id });
+        if (!member) {
+            throw new NotFoundException('No se encuentra el miembro solicitado!');
+        }
+        return member;
+    }
+
+    async createMember(member: Member) {
+        const created = await this.membersRepository.save(member);
+        if (!created) {
+            throw new BadRequestException('No se logro crear el miembro!');
+        }
+        return created;
+    }
+
+    async updateMember(id: string, member: Member) {
+        const updated = await this.membersRepository.save({ id, member });
+        if (!updated) {
+            throw new BadRequestException(`No se logro actualizar el miembro #: ${id}`);
+        }
+        return updated;
+    }
+
+    async deleteMember(id: string) {
+        const deleted = await this.membersRepository.delete(id);
+        if (!deleted) {
+            throw new BadRequestException(`No se logro eliminar el miembro #: ${id}`);
+        }
+        return deleted;
+    }
+
 }
