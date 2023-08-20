@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { writeFileSync } from 'fs';
 
 export async function createApp(): Promise<INestApplication> {
   const app = await NestFactory.create(AppModule);
@@ -14,12 +15,12 @@ export async function createApp(): Promise<INestApplication> {
   const builder = new DocumentBuilder()
     .setTitle('Mi Casa')
     .setDescription('Mi Casa')
+    .setBasePath('docs')
+    .addServer('https://serverlessmicasamed.azurewebsites.net/')
     .build();
   const document = SwaggerModule.createDocument(app, builder);
-  SwaggerModule.setup('api', app, document);
-
+  SwaggerModule.setup('docs', app, document);
+  writeFileSync("./swagger-spec.json", JSON.stringify(document));
   await app.init();
-  await app.listen(port);
-
   return app;
 }

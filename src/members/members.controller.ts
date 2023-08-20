@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { MembersService } from './members.service';
-import { MemberBodyDto, MemberParamDto, MembersQueryParamDto } from './dtos/members-query-param.dto';
+import { MemberBodyDto, MemberParamDto, MembersQueryParamDto } from './dtos/members.dto';
 import { Member } from './member.entity';
 import { ApiTags } from '@nestjs/swagger';
 
