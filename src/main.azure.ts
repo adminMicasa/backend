@@ -22,5 +22,9 @@ export async function createApp(): Promise<INestApplication> {
   SwaggerModule.setup('docs', app, document);
   writeFileSync("./swagger-spec.json", JSON.stringify(document));
   await app.init();
+  const appConfig = app.getHttpAdapter().getInstance().options;
+  console.log('PORT', appConfig)
+  await app.listen(appConfig.port);
+
   return app;
 }
