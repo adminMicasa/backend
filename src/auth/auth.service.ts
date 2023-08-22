@@ -1,18 +1,18 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { UsersService } from 'src/users/users.service';
 import { AuthBodyDto } from './dtos/auth.dto';
 
 @Injectable()
 export class AuthService {
-    constructor(private usersService: UsersService) { }
+    saltOrRounds = 10;
 
+    constructor(private usersService: UsersService) { }
 
     async signIn(authBody: AuthBodyDto) {
         const user = await this.usersService.getUserByEmail(authBody.email);
-        const hashPassword = await this.hashPassword(authBody.password);
-
-        if (!this.comparePasswords(authBody.password, hashPassword)) {
+        const compareResult = await this.comparePasswords(authBody.password, user.password);
+        if (!compareResult) {
             throw new UnauthorizedException();
         }
         const { password, ...result } = user;
@@ -21,8 +21,8 @@ export class AuthService {
         return result;
     }
     async hashPassword(password: string): Promise<string> {
-        const saltOrRounds = 10;
-        return await bcrypt.hash(password, saltOrRounds);
+        const salt = await bcrypt.genSalt(this.saltOrRounds);
+        return await bcrypt.hash(password, salt);
     }
 
     async comparePasswords(inputPassword: string, storedHash: string): Promise<boolean> {
