@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { writeFileSync } from 'fs';
 
 async function bootstrap() {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -18,6 +19,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, builder);
   SwaggerModule.setup('api', app, document);
+  writeFileSync("./swagger-spec.json", JSON.stringify(document));
 
   await app.listen(port);
 }
