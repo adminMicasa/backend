@@ -7,6 +7,8 @@ import { DatabaseModule } from './database.module';
 import { MembersModule } from './members/members.module';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeORMExceptionFilter } from './filters/type-orm-filter.filter';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -15,7 +17,9 @@ import { TypeORMExceptionFilter } from './filters/type-orm-filter.filter';
       load: [configuration],
     }),
     DatabaseModule,
-    MembersModule
+    MembersModule,
+    AuthModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService,

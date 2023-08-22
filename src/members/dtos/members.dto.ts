@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+import { IsInt, IsOptional } from "class-validator";
 import { PaginatorQueryParamDto } from "src/shared/dtos/paginator-query-params.dto";
 
 export class MembersQueryParamDto extends PaginatorQueryParamDto {
@@ -14,9 +15,11 @@ export class MembersQueryParamDto extends PaginatorQueryParamDto {
     email?: string;
 }
 
-export class MemberParamDto  {
+export class MemberParamDto {
     @ApiProperty({ description: 'id del miembro', required: true })
-    id: string;
+    @IsInt()
+    @Type(() => Number)
+    id: number;
 }
 
 export class MemberBodyDto {

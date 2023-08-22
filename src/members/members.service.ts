@@ -28,7 +28,7 @@ export class MembersService {
         return { data, total };
     }
 
-    async getMemberById(id: string) {
+    async getMemberById(id: number) {
         const member = await this.membersRepository.findOneBy({ id: id });
         if (!member) {
             throw new NotFoundException('No se encuentra el miembro solicitado!');
@@ -44,15 +44,15 @@ export class MembersService {
         return created;
     }
 
-    async updateMember(id: string, member: Member) {
-        const updated = await this.membersRepository.save({ id, member });
+    async updateMember(id: number, member: Member) {
+        const updated = await this.membersRepository.save({ id, ...member });
         if (!updated) {
             throw new BadRequestException(`No se logro actualizar el miembro #: ${id}`);
         }
         return updated;
     }
 
-    async deleteMember(id: string) {
+    async deleteMember(id: number) {
         const deleted = await this.membersRepository.delete(id);
         if (!deleted) {
             throw new BadRequestException(`No se logro eliminar el miembro #: ${id}`);

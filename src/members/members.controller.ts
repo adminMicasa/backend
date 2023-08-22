@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { MembersService } from './members.service';
 import { MemberBodyDto, MemberParamDto, MembersQueryParamDto } from './dtos/members.dto';
 import { Member } from './member.entity';
@@ -41,7 +41,7 @@ export class MembersController {
         @Param() memberParam: MemberParamDto,
         @Body() memberBody: MemberBodyDto,
     ) {
-        return this.membersService.updateMember(memberParam.id, memberBody as Member);
+        return this.membersService.updateMember(+memberParam.id, memberBody as Member);
     }
 
     @ApiTags('members')
@@ -49,7 +49,7 @@ export class MembersController {
     deleteMember(
         @Param() memberParam: MemberParamDto,
     ) {
-        return this.membersService.deleteMember(memberParam.id);
+        return this.membersService.deleteMember(+memberParam.id);
     }
 
 }
