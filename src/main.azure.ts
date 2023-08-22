@@ -15,7 +15,6 @@ export async function createApp(): Promise<INestApplication> {
   const builder = new DocumentBuilder()
     .setTitle('Mi Casa')
     .setDescription('Mi Casa')
-    .setBasePath('docs')
     .addServer('https://serverlessmicasamed.azurewebsites.net/')
     .build();
   const document = SwaggerModule.createDocument(app, builder);
