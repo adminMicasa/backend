@@ -7,6 +7,10 @@ export async function createApp(): Promise<INestApplication> {
   app.enableCors();
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
+  app.use((req, res, next) => {
+    res.header('Content-Type', 'application/json');
+    next();
+  });
   await app.init();
   return app;
 }
