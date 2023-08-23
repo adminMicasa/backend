@@ -12,6 +12,5 @@ export class AuthController {
     async signIn(
         @Body() authBody: AuthBodyDto): Promise<any> {
         return this.authService.signIn(authBody);
-        
     }
 }

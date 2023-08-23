@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { writeFileSync } from 'fs';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -20,7 +21,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, builder);
   SwaggerModule.setup('api', app, document);
   writeFileSync("./swagger-spec.json", JSON.stringify(document));
-
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(port);
 }
 bootstrap();
