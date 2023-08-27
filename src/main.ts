@@ -17,6 +17,7 @@ async function bootstrap() {
   const builder = new DocumentBuilder()
     .setTitle('Mi Casa')
     .setDescription('Mi Casa')
+    .addServer('https://serverlessmicasamed.azurewebsites.net')
     .build();
   const document = SwaggerModule.createDocument(app, builder);
   SwaggerModule.setup('api', app, document);
