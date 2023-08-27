@@ -8,7 +8,7 @@ import { SelectorsModule } from 'src/selectors/selectors.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Member,Municipality], 'default'),
+    TypeOrmModule.forFeature([Member], 'default'),
     SelectorsModule
   ],
   providers: [MembersService],

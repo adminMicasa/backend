@@ -35,7 +35,14 @@ export class MembersService {
     }
 
     async getMemberById(id: number) {
-        const member = await this.membersRepository.findOneBy({ id: id });
+        const member = await this.membersRepository.findOne(
+            {
+                where: {
+                    id: id
+                },
+                relations: ['municipality', 'occupation', 'socialNetwork', 'howKnow', 'discipleshipLeader']
+            },
+        );
         if (!member) {
             throw new NotFoundException('No se encuentra el miembro solicitado!');
         }
