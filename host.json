@@ -11,5 +11,5 @@
       "enabled": true
     }
   },
-  "functionTimeout": "01:00:00"
+  "functionTimeout": "00:05:00"
 }
