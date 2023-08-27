@@ -15,15 +15,16 @@ export class AuthService {
         if (!user) {
             throw new UnauthorizedException();
         }
+
         const compareResult = await this.comparePasswords(authBody.password, user.password);
         if (!compareResult) {
             throw new UnauthorizedException();
         }
         const { password, ...result } = user;
         const accessToken = this.jwtService.sign(result);
-        return {accessToken};
+        return { accessToken };
     }
-    
+
     async hashPassword(password: string): Promise<string> {
         const salt = await bcrypt.genSalt(this.saltOrRounds);
         return await bcrypt.hash(password, salt);

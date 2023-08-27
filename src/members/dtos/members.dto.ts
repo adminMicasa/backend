@@ -1,7 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsBoolean, IsEmail, IsInt, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsEmail, IsEnum, IsInt, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
 import { PaginatorQueryParamDto } from "src/shared/dtos/paginator-query-params.dto";
+import { Sex } from "./sex.enum";
 
 export class MembersQueryParamDto extends PaginatorQueryParamDto {
     @IsOptional()
@@ -36,26 +37,49 @@ export class MemberBodyDto {
     age: number;
 
     @IsString()
+    @IsEnum(Sex)
+    @ApiProperty({ description: 'parametro de miembro', required: true, enum: Sex })
+    sex: Sex;
+
+    @IsString()
     @ApiProperty({ description: 'parametro de miembro', required: true })
     phone: string;
 
-    @IsEmail()
+    @IsEmail({}, { message: 'Debe ingresar un correo valido!' })
     @ApiProperty({ description: 'parametro de miembro', required: true })
     email: string;
 
     @IsString()
     @ApiProperty({ description: 'parametro de miembro', required: true })
-    municipality: string;
-
-    @IsString()
-    @ApiProperty({ description: 'parametro de miembro', required: true })
     district: string;
-
-    @IsString()
-    @ApiProperty({ description: 'parametro de miembro', required: true })
-    occupation: string;
 
     @IsBoolean()
     @ApiProperty({ description: 'parametro de miembro', required: true })
     volunteer: boolean;
+
+    @IsBoolean()
+    @ApiProperty({ description: 'parametro de miembro', required: true })
+    discipleship: boolean;
+
+    @IsPositive()
+    @ApiProperty({ description: 'parametro de miembro', required: true })
+    municipalityId: number;
+
+    @IsPositive()
+    @ApiProperty({ description: 'parametro de miembro', required: true })
+    occupationId: number;
+
+    @IsPositive()
+    @ApiProperty({ description: 'parametro de miembro', required: true })
+    socialNetworkId: number;
+
+    @IsPositive()
+    @ApiProperty({ description: 'parametro de miembro', required: true })
+    howKnowId: number;
+
+    @IsOptional()
+    @IsPositive()
+    @ApiProperty({ description: 'parametro de miembro', required: false })
+    discipleshipLeaderId: number;
+
 }

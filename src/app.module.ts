@@ -9,6 +9,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { TypeORMExceptionFilter } from './filters/type-orm-filter.filter';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { SelectorsModule } from './selectors/selectors.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UsersModule } from './users/users.module';
     MembersModule,
     AuthModule,
     UsersModule,
+    SelectorsModule,
   ],
   controllers: [AppController],
   providers: [AppService,

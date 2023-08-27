@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
+      
       name: 'default',
       imports: [ConfigModule],
       inject: [ConfigService],

@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { MembersService } from './members.service';
 import { MemberBodyDto, MemberParamDto, MembersQueryParamDto } from './dtos/members.dto';
-import { Member } from './member.entity';
+import { Member } from './entities/member.entity';
 import { ApiTags } from '@nestjs/swagger';
+import { PaginationApi } from 'src/shared/interfaces/filters-api.interfaces';
 
 @Controller('members')
 export class MembersController {
@@ -15,7 +16,9 @@ export class MembersController {
     getMembers(
         @Query() queryParams: MembersQueryParamDto,
     ) {
-        return this.membersService.getAll({ page: queryParams.page ? parseInt(queryParams.page) : 1, perPage: queryParams.perPage ? parseInt(queryParams.perPage) : 10 }, queryParams);
+        return this.membersService.getAll(
+            new PaginationApi(queryParams.page, queryParams.perPage),
+            queryParams);
     }
 
     @ApiTags('members')
@@ -32,7 +35,7 @@ export class MembersController {
     createMember(
         @Body() memberBody: MemberBodyDto,
     ) {
-        return this.membersService.createMember(memberBody as Member);
+        return this.membersService.createMember(memberBody);
     }
 
     @ApiTags('members')
@@ -41,7 +44,7 @@ export class MembersController {
         @Param() memberParam: MemberParamDto,
         @Body() memberBody: MemberBodyDto,
     ) {
-        return this.membersService.updateMember(+memberParam.id, memberBody as Member);
+        return this.membersService.updateMember(+memberParam.id, memberBody);
     }
 
     @ApiTags('members')
