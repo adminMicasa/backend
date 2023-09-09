@@ -3,8 +3,8 @@ export class PaginationApi {
     perPage?: number | any = 10;
 
     constructor(page: number | any, perPage: number | any) {
-        page = this.page ? (typeof this.page == 'string' ? parseInt(this.page) : this.page) : 1;
-        perPage = this.page ? (typeof this.page == 'string' ? parseInt(this.page) : this.page) : 10;
+        this.page = page ? (typeof page == 'string' ? parseInt(page) : page) : 1;
+        this.perPage = perPage ? (typeof perPage == 'string' ? parseInt(perPage) : perPage) : 10;
     }
 }
 
