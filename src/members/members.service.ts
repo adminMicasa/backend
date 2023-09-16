@@ -68,7 +68,7 @@ export class MembersService {
     }
 
     async deleteMember(id: number) {
-        const deleted = await this.membersRepository.delete(id);
+        const deleted = await this.membersRepository.save({ id,active:false});
         if (!deleted) {
             throw new BadRequestException(`No se logro eliminar el miembro #: ${id}`);
         }
