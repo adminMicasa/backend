@@ -45,6 +45,7 @@ export class MemberBodyDto {
     @ApiProperty({ description: 'parametro de miembro', required: true })
     phone: string;
 
+    @IsOptional()
     @IsEmail({}, { message: 'Debe ingresar un correo valido!' })
     @ApiProperty({ description: 'parametro de miembro', required: true })
     email: string;
@@ -80,6 +81,6 @@ export class MemberBodyDto {
     @IsOptional()
     @IsPositive()
     @ApiProperty({ description: 'parametro de miembro', required: false })
-    discipleshipLeaderId: number;
+    leaderDiscipleshipId: number;
 
 }

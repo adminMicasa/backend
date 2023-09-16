@@ -90,8 +90,8 @@ export class MembersService {
             socialNetwork = await this.selectorsService.getSocialNetworkById(memberBody.socialNetworkId);
         if (memberBody.howKnowId)
             howKnow = await this.selectorsService.getHowKnowById(memberBody.howKnowId);
-        if (memberBody.discipleshipLeaderId)
-            discipleshipLeader = await this.getMemberById(memberBody.discipleshipLeaderId);
+        if (memberBody.leaderDiscipleshipId)
+            discipleshipLeader = await this.getMemberById(memberBody.leaderDiscipleshipId);
 
         const member = this.membersRepository.create({
             names: memberBody.names,
