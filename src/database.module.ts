@@ -21,6 +21,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         database: configService.get('db_name'),
         entities: ['dist/**/*.entity.js'],
         synchronize: false,
+        logging:true
       }),
     }),
   ],

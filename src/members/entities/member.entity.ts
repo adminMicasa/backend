@@ -26,6 +26,8 @@ export class Member {
     volunteer: boolean;
     @Column({ name: 'discipulado' })
     discipleship: boolean;
+    @Column({ name: 'activo' })
+    active: boolean;
 
     @ManyToOne(() => Municipality, municipality => municipality.members)
     @JoinColumn({ name: 'FK_Id_municipio' })
