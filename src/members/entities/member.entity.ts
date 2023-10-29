@@ -24,8 +24,6 @@ export class Member {
     district: string;
     @Column({ name: 'voluntario' })
     volunteer: boolean;
-    @Column({ name: 'discipulado' })
-    discipleship: boolean;
     @Column({ name: 'activo' })
     active: boolean;
 
@@ -45,10 +43,4 @@ export class Member {
     @JoinColumn({ name: 'FK_Id_comoConociste' })
     howKnow: HowKnow;
 
-    @ManyToOne(() => Member, member => member.discipleshipLeader)
-    @JoinColumn({ name: 'FK_Id_liderDiscipulado' })
-    discipleshipLeader: Member;
-
-    @OneToMany(() => Member, member => member.discipleshipLeader)
-    discipleshipLeaders: Member[];
 }

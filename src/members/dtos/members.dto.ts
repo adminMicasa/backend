@@ -78,9 +78,4 @@ export class MemberBodyDto {
     @ApiProperty({ description: 'parametro de miembro', required: true })
     howKnowId: number;
 
-    @IsOptional()
-    @IsPositive()
-    @ApiProperty({ description: 'parametro de miembro', required: false })
-    leaderDiscipleshipId: number;
-
 }
