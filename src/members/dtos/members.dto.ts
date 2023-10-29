@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Type } from "class-transformer";
-import { IsBoolean, IsEmail, IsEnum, IsInt, IsNumber, IsOptional, IsPositive, IsString } from "class-validator";
+import { IsBoolean, IsEmail, IsEnum, IsInt, IsNumber, IsOptional, IsPositive, IsString, ValidateIf } from "class-validator";
 import { PaginatorQueryParamDto } from "src/shared/dtos/paginator-query-params.dto";
 import { Sex } from "./sex.enum";
 
@@ -45,9 +45,9 @@ export class MemberBodyDto {
     @ApiProperty({ description: 'parametro de miembro', required: true })
     phone: string;
 
-    @IsOptional()
     @IsEmail({}, { message: 'Debe ingresar un correo valido!' })
-    @ApiProperty({ description: 'parametro de miembro', required: true })
+    @ValidateIf((obj) => obj.email !== null && obj.email !== '')
+    @ApiProperty({ description: 'parametro de miembro', required: false })
     email: string;
 
     @IsString()
@@ -57,10 +57,6 @@ export class MemberBodyDto {
     @IsBoolean()
     @ApiProperty({ description: 'parametro de miembro', required: true })
     volunteer: boolean;
-
-    @IsBoolean()
-    @ApiProperty({ description: 'parametro de miembro', required: true })
-    discipleship: boolean;
 
     @IsPositive()
     @ApiProperty({ description: 'parametro de miembro', required: true })
