@@ -16,6 +16,7 @@ export class TypeORMExceptionFilter implements ExceptionFilter {
       const valueMatch = exception.message.match(/\(([^)]+)\)/);
       const ukConstraint = ukMatch ? ukMatch[1] : 'Desconocido';
       const duplicateValue = valueMatch ? valueMatch[1] : 'Desconocido';
+      
       const errorMessage = `La regla de negocio [${ukConstraint}] no permite duplicados, valor actual: ${duplicateValue}, intente ingresar otro valor!`
       response.status(400).json({
         statusCode: 400,

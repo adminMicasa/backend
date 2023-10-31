@@ -15,3 +15,10 @@ export class FiltersApi {
     phone?: string = '';
     email?: string = '';
 }
+
+export class FiltersApiCourses {
+    name?: string = '';
+    active?: boolean = true;
+    startDate?: Date = new Date();
+    endDate?: Date = new Date();
+}

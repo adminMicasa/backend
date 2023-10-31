@@ -6,10 +6,11 @@ import { SocialNetwork } from './entities/social-network.entity';
 import { SelectorsController } from './selectors.controller';
 import { SelectorsService } from './selectors.service';
 import { HowKnow } from './entities/how-know.entity';
+import { Step } from './entities/steps.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Municipality, Occupation, SocialNetwork, HowKnow], 'default'),
+    TypeOrmModule.forFeature([Municipality, Occupation, SocialNetwork, HowKnow,Step], 'default'),
   ],
   providers: [SelectorsService],
   exports: [SelectorsService],

@@ -10,6 +10,7 @@ import { TypeORMExceptionFilter } from './filters/type-orm-filter.filter';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SelectorsModule } from './selectors/selectors.module';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { SelectorsModule } from './selectors/selectors.module';
     AuthModule,
     UsersModule,
     SelectorsModule,
+    CoursesModule
   ],
   controllers: [AppController],
   providers: [AppService,

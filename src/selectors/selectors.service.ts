@@ -6,6 +6,7 @@ import { FiltersApi, PaginationApi } from 'src/shared/interfaces/filters-api.int
 import { Occupation } from './entities/occupation.entity';
 import { SocialNetwork } from './entities/social-network.entity';
 import { HowKnow } from './entities/how-know.entity';
+import { Step } from './entities/steps.entity';
 
 @Injectable()
 export class SelectorsService {
@@ -20,6 +21,8 @@ export class SelectorsService {
         private readonly socialNetworkRepository: Repository<SocialNetwork>,
         @InjectRepository(HowKnow, 'default')
         private readonly howKnowRepository: Repository<HowKnow>,
+        @InjectRepository(Step, 'default')
+        private readonly StepRepository: Repository<HowKnow>,
     ) {
     }
 
@@ -101,6 +104,27 @@ export class SelectorsService {
             throw new NotFoundException('No se encuentra como nos conociste solicitado!');
         }
         return howKnowRepository;
+    }
+
+
+    async getStep(paginator: PaginationApi, filters: FiltersApi) {
+        const skip = (paginator.page - 1) * (paginator.perPage == -1 ? 0 : paginator.perPage);
+
+        const [data, total] = await this.StepRepository.findAndCount({
+            skip,
+            take: paginator.perPage == -1 ? 0 : paginator.perPage,
+            where: {
+                name: ILike(`%${filters.name || ''}%`)
+            },
+        });
+        return { data, metadata: { total, perPage: paginator.perPage, page: paginator.page } };
+    }
+    async getStepById(id: number) {
+        const stepRepository = await this.StepRepository.findOneBy({ id: id });
+        if (!stepRepository) {
+            throw new NotFoundException('No se encuentra el paso solicitado!');
+        }
+        return stepRepository;
     }
 
 }
