@@ -29,7 +29,7 @@ export class MembersService {
                 phone: Like(`%${filters.phone || ''}%`),
                 email: Like(`%${filters.email || ''}%`),
             },
-            relations: ['municipality', 'occupation', 'socialNetwork', 'howKnow', 'discipleshipLeader']
+            relations: ['municipality', 'occupation', 'socialNetwork', 'howKnow']
         });
         return { data, metadata: { total, perPage: paginator.perPage, page: paginator.page } };
     }
@@ -40,7 +40,7 @@ export class MembersService {
                 where: {
                     id: id
                 },
-                relations: ['municipality', 'occupation', 'socialNetwork', 'howKnow', 'discipleshipLeader']
+                relations: ['municipality', 'occupation', 'socialNetwork', 'howKnow']
             },
         );
         if (!member) {
@@ -80,7 +80,6 @@ export class MembersService {
         let occupation = null;
         let socialNetwork = null;
         let howKnow = null;
-        let discipleshipLeader = null;
 
         if (memberBody.municipalityId)
             municipality = await this.selectorsService.getMunicipaliyById(memberBody.municipalityId);
@@ -90,8 +89,6 @@ export class MembersService {
             socialNetwork = await this.selectorsService.getSocialNetworkById(memberBody.socialNetworkId);
         if (memberBody.howKnowId)
             howKnow = await this.selectorsService.getHowKnowById(memberBody.howKnowId);
-        if (memberBody.leaderDiscipleshipId)
-            discipleshipLeader = await this.getMemberById(memberBody.leaderDiscipleshipId);
 
         const member = this.membersRepository.create({
             names: memberBody.names,
@@ -102,12 +99,10 @@ export class MembersService {
             email: memberBody.email,
             district: memberBody.district,
             volunteer: memberBody.volunteer,
-            discipleship: memberBody.discipleship,
             municipality: municipality,
             occupation: occupation,
             socialNetwork: socialNetwork,
             howKnow: howKnow,
-            discipleshipLeader: discipleshipLeader
         });
         return member;
     }
