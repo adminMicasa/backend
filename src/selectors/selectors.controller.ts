@@ -50,4 +50,15 @@ export class SelectorsController {
             queryParams);
     }
 
+    @ApiTags('selectors')
+    @Get('steps')
+    getStep(
+        @Query() queryParams: SelectorsQueryParamDto,
+    ) {
+        return this.selectorsService.getStep(
+            new PaginationApi(queryParams.page, queryParams.perPage),
+            queryParams);
+    }
+
 }
+
