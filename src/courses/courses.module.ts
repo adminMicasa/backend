@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Course } from './entities/courses.entity';
 import { SelectorsModule } from 'src/selectors/selectors.module';
 
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([Course], 'default'),

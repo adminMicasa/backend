@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SelectorsModule } from './selectors/selectors.module';
 import { CoursesModule } from './courses/courses.module';
+import { EnrollmentCoursesModule } from './enrollmentCourses/enrollmentCourses.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { CoursesModule } from './courses/courses.module';
     AuthModule,
     UsersModule,
     SelectorsModule,
-    CoursesModule
+    CoursesModule,
+    EnrollmentCoursesModule
   ],
   controllers: [AppController],
   providers: [AppService,

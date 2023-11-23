@@ -13,8 +13,10 @@ export class CoursesService {
     constructor(
         @InjectRepository(Course, 'default')
         private readonly coursesRepository: Repository<Course>,
-        private readonly selectorsService: SelectorsService
+        private readonly selectorsService: SelectorsService,
+        
     ) {
+
     }
 
     async getAll(paginator: PaginationApi, filters: FiltersApiCourses) {

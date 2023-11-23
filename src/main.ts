@@ -15,8 +15,8 @@ async function bootstrap() {
   const port = config.get('port');
 
   const builder = new DocumentBuilder()
-    .setTitle('Mi Casa')
-    .setDescription('Mi Casa')
+    .setTitle('The Church Medellin')
+    .setDescription('The Church Medellin')
     .addServer('https://serverlessmicasamed.azurewebsites.net')
     .addServer('http://localhost:3000')
     .build();

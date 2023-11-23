@@ -2,6 +2,7 @@ import { HowKnow } from 'src/selectors/entities/how-know.entity';
 import { Municipality } from 'src/selectors/entities/municipality.entity';
 import { Occupation } from 'src/selectors/entities/occupation.entity';
 import { SocialNetwork } from 'src/selectors/entities/social-network.entity';
+import { EnrollmentCourse } from 'src/enrollmentCourses/entities/enrollmentCourses.entity';
 import { Entity, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity({ name: 'miembros' })
@@ -42,5 +43,12 @@ export class Member {
     @ManyToOne(() => HowKnow, howKnow => howKnow.members)
     @JoinColumn({ name: 'FK_Id_comoConociste' })
     howKnow: HowKnow;
+
+    @OneToMany(() => EnrollmentCourse, enrollmentCourse => enrollmentCourse.member)
+    enrollmentCourse: EnrollmentCourse[];
+
+    
+    @OneToMany(() => Member, member => member.municipality)
+    members: Member[];
 
 }

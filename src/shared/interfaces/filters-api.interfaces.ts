@@ -22,3 +22,8 @@ export class FiltersApiCourses {
     startDate?: Date = new Date();
     endDate?: Date = new Date();
 }
+
+export class FiltersApiEnrollmentCourses {
+    state?: string = '';
+    //member?: number = 0;
+}
