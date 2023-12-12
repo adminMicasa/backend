@@ -5,6 +5,7 @@ import { ILike, Like, Repository } from 'typeorm';
 import { FiltersApiEnrollmentCourses, PaginationApi } from 'src/shared/interfaces/filters-api.interfaces';
 import { EnrollmentCourseBodyDto } from './dtos/enrollmentCourses.dto';
 import { CoursesService } from 'src/courses/courses.service';
+import { MembersService } from 'src/members/members.service';
 
 @Injectable()
 export class EnrollmentCoursesService {
@@ -14,7 +15,7 @@ export class EnrollmentCoursesService {
         @InjectRepository(EnrollmentCourse, 'default')
         private readonly enrollmentCoursesRepository: Repository<EnrollmentCourse>,
         private readonly coursesService: CoursesService,
-        
+        private readonly memberService: MembersService,
     ) {
 
     }
@@ -28,7 +29,7 @@ export class EnrollmentCoursesService {
             where: {
                 state: ILike(`%${filters.state || ''}%`),
             },
-            relations: ['courseId']
+            relations: ['courseId','member']
         });
         return { data, metadata: { total, perPage: paginator.perPage, page: paginator.page } };
     }
@@ -39,7 +40,7 @@ export class EnrollmentCoursesService {
                 where: {
                     id: id
                 },
-                //relations: ['course']
+                relations: ['courseId','member']
             },
         );
         if (!enrollmentCourse) {
@@ -47,6 +48,34 @@ export class EnrollmentCoursesService {
         }
         return enrollmentCourse;
     }
+
+    async getEnrollmentCourseByCourse(courseId: number) {
+        const enrollmentCourse = await this.enrollmentCoursesRepository
+        .createQueryBuilder('enrollmentCourses')
+        .leftJoinAndSelect('enrollmentCourses.courseId','course')
+        .leftJoinAndSelect('enrollmentCourses.member','member')
+        .where('course.id = :courseId', {courseId})
+        .getMany();
+        if (!enrollmentCourse) {
+            throw new NotFoundException('No se encuentra el curso solicitado!');
+        }
+        return enrollmentCourse;
+    }
+
+
+    async getEnrollmentCourseByMember(memberId: number) {
+        const enrollmentCourse = await this.enrollmentCoursesRepository
+        .createQueryBuilder('enrollmentCourses')
+        .leftJoinAndSelect('enrollmentCourses.courseId','course')
+        .leftJoinAndSelect('enrollmentCourses.member','member')
+        .where('member.id = :memberId', {memberId})
+        .getMany();
+        if (!enrollmentCourse) {
+            throw new NotFoundException('No se encuentra el curso solicitado!');
+        }
+        return enrollmentCourse;
+    }
+
 
     async createEnrollmentCourse(enrollmentCourseBody: EnrollmentCourseBodyDto) {
         const enrollmentCourse = await this.builEnrollmentCourse(enrollmentCourseBody);
@@ -82,12 +111,13 @@ export class EnrollmentCoursesService {
 
     async builEnrollmentCourse(enrollmentCourseBody: EnrollmentCourseBodyDto) {
         let course = null;
+        let member = null;
         if (enrollmentCourseBody.courseId)
             course = await this.coursesService.getCourseById(enrollmentCourseBody.courseId);
-
+            member = await this.memberService.getMemberById(enrollmentCourseBody.memberId); 
         const enrollmentCourse = this.enrollmentCoursesRepository.create({
             state: enrollmentCourseBody.state,
-            member: enrollmentCourseBody.memberId,
+            member: member,
             courseId:course
             
         });

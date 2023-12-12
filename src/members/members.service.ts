@@ -99,6 +99,8 @@ export class MembersService {
             email: memberBody.email,
             district: memberBody.district,
             volunteer: memberBody.volunteer,
+            comment:memberBody.comment,
+            arrivalDate:memberBody.arrivalDate,
             municipality: municipality,
             occupation: occupation,
             socialNetwork: socialNetwork,

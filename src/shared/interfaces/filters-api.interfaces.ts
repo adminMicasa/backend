@@ -25,5 +25,19 @@ export class FiltersApiCourses {
 
 export class FiltersApiEnrollmentCourses {
     state?: string = '';
-    //member?: number = 0;
+    member?: number = 0;
+    courseId?: number = 0
+}
+
+export class FiltersApiCoursesClasses {
+    topicId?: number = 0;
+    courseId?: number = 0;
+    classDate?: Date = new Date();
+    numberClass?: number
+
+}
+
+export class FiltersApiStepTopics {
+    topicName?:string = '';
+    
 }

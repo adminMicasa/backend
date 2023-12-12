@@ -27,6 +27,10 @@ export class Member {
     volunteer: boolean;
     @Column({ name: 'activo' })
     active: boolean;
+    @Column({ name: 'fechaLlegada' })
+    arrivalDate: Date;
+    @Column({ name: 'comentarios' })
+    comment: string;
 
     @ManyToOne(() => Municipality, municipality => municipality.members)
     @JoinColumn({ name: 'FK_Id_municipio' })

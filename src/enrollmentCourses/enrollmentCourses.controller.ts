@@ -33,6 +33,26 @@ export class EnrollmentCoursesController {
     }
 
     @ApiTags('enrollmentCourses')
+    @Get('byCourseId/:courseId')
+    getEnrollmentCourseByCourseId(
+        @Param('courseId') courseIdParam: number
+    ) {
+        const  courses  = this.enrollmentcoursesService.getEnrollmentCourseByCourse(courseIdParam);
+
+        return courses;
+    }
+
+    @ApiTags('enrollmentCourses')
+    @Get('byMemberId/:memberId')
+    getEnrollmentCourseByMemberId(
+        @Param('memberId') memberIdParam: number
+    ) {
+        const  members  = this.enrollmentcoursesService.getEnrollmentCourseByMember(memberIdParam);
+
+        return members;
+    }
+
+    @ApiTags('enrollmentCourses')
     @Post()
     createEnrollmentCourse(
         @Body() enrollmentCourssBody: EnrollmentCourseBodyDto,

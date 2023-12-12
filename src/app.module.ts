@@ -12,6 +12,9 @@ import { UsersModule } from './users/users.module';
 import { SelectorsModule } from './selectors/selectors.module';
 import { CoursesModule } from './courses/courses.module';
 import { EnrollmentCoursesModule } from './enrollmentCourses/enrollmentCourses.module';
+import { CoursesClasses } from './coursesClasses/entities/coursesClasses.entity';
+import { CoursesClassesModule } from './coursesClasses/coursesClasses.module';
+import { StepTopicsModule } from './stepTopics/stepTopics.module';
 
 @Module({
   imports: [
@@ -25,7 +28,10 @@ import { EnrollmentCoursesModule } from './enrollmentCourses/enrollmentCourses.m
     UsersModule,
     SelectorsModule,
     CoursesModule,
-    EnrollmentCoursesModule
+    EnrollmentCoursesModule,
+    CoursesModule,
+    CoursesClassesModule,
+    StepTopicsModule
   ],
   controllers: [AppController],
   providers: [AppService,

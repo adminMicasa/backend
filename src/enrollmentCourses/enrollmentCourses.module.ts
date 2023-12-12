@@ -4,12 +4,14 @@ import { EnrollmentCoursesController } from './enrollmentCourses.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EnrollmentCourse } from './entities/enrollmentCourses.entity';
 import { CoursesModule } from 'src/courses/courses.module';
+import { MembersModule } from 'src/members/members.module';
 
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([EnrollmentCourse], 'default'),
-    CoursesModule
+    CoursesModule,
+    MembersModule
   ],
   providers: [EnrollmentCoursesService],
   exports: [EnrollmentCoursesService],

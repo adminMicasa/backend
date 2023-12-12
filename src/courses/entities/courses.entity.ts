@@ -1,6 +1,6 @@
 import { EnrollmentCourse } from 'src/enrollmentCourses/entities/enrollmentCourses.entity';
+import { CoursesClasses } from 'src/coursesClasses/entities/coursesClasses.entity';
 import { Step } from 'src/selectors/entities/steps.entity';
-
 import { Entity, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity({ name: 'escuela' })
@@ -15,10 +15,15 @@ export class Course {
     startDate: Date;
     @Column({ name: 'fechaFin' })
     endDate: Date;
+    
     @ManyToOne(() => Step, step => step.courses)
     @JoinColumn({ name: 'FK_id_pasos' })
     step: Step;
     
     @OneToMany(() => EnrollmentCourse, enrollmentCourse => enrollmentCourse.courseId)
     enrollmentCourse: EnrollmentCourse;
+
+    @OneToMany(() => CoursesClasses, courseClasses => courseClasses.courseId)
+    courseClasses: CoursesClasses;
+
 }

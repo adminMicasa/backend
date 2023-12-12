@@ -18,6 +18,13 @@ export class EnrollmentCourseParamDto {
     id: number;
 }
 
+export class EnrollmentByCourseParamDto {
+    @ApiProperty({ description: 'id del curso', required: true })
+    @IsInt()
+    @Type(() => Number)
+    courseId: number;
+}
+
 export class EnrollmentCourseDeleteDto {
     @ApiProperty({ description: 'id del curso', required: true })
     @IsInt()
